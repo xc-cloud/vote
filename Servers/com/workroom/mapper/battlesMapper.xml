@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.workroom.mapper.battlesMapper">
+  <resultMap id="BaseResultMap" type="com.workroom.domain.battles">
+    <id column="battleId" jdbcType="INTEGER" property="battleid" />
+    <result column="matchId" jdbcType="INTEGER" property="matchid" />
+    <result column="PlayerId" jdbcType="INTEGER" property="playerid" />
+    <result column="TicketTrueCount" jdbcType="INTEGER" property="tickettruecount" />
+    <result column="TicketFalseCount" jdbcType="INTEGER" property="ticketfalsecount" />
+    <result column="NeedScoreCount" jdbcType="DOUBLE" property="needscorecount" />
+    <result column="matchType" jdbcType="INTEGER" property="matchtype" />
+    <result column="battleFlag" jdbcType="INTEGER" property="battleflag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.workroom.domain.battles">
+    <result column="SongName" jdbcType="LONGVARCHAR" property="songname" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    battleId, matchId, PlayerId, TicketTrueCount, TicketFalseCount, NeedScoreCount, matchType, 
+    battleFlag
+  </sql>
+  <sql id="Blob_Column_List">
+    SongName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from battles
+    where battleId = #{battleid,jdbcType=INTEGER}
+  </select>
+  <select id="selectbattleTrue" resultMap="ResultMapWithBLOBs">
+    select * from battles
+    where battleFlag = 2
+  </select>
+  <select id="selectBattleGetISTrue" resultMap="ResultMapWithBLOBs">
+    select * from battles where battleFlag = 3 order by  TicketTrueCount desc limit 1
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from battles
+  </select>
+  <select id="getId" resultType="java.lang.Integer">
+    SELECT LAST_INSERT_ID()
+  </select>
+    <select id="selectAllOrderby" resultMap="BaseResultMap">
+    select * from battles where battleFlag= 1 or battleFlag = 2 order by matchId
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from battles
+    where battleId = #{battleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.workroom.domain.battles">
+    insert into battles (battleId, matchId, PlayerId, 
+      TicketTrueCount, TicketFalseCount, NeedScoreCount, 
+      matchType, battleFlag, SongName
+      )
+    values (#{battleid,jdbcType=INTEGER}, #{matchid,jdbcType=INTEGER}, #{playerid,jdbcType=INTEGER}, 
+      #{tickettruecount,jdbcType=INTEGER}, #{ticketfalsecount,jdbcType=INTEGER}, #{needscorecount,jdbcType=DOUBLE}, 
+      #{matchtype,jdbcType=INTEGER}, #{battleflag,jdbcType=INTEGER}, #{songname,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.workroom.domain.battles">
+    insert into battles
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="battleid != null">
+        battleId,
+      </if>
+      <if test="matchid != null">
+        matchId,
+      </if>
+      <if test="playerid != null">
+        PlayerId,
+      </if>
+      <if test="tickettruecount != null">
+        TicketTrueCount,
+      </if>
+      <if test="ticketfalsecount != null">
+        TicketFalseCount,
+      </if>
+      <if test="needscorecount != null">
+        NeedScoreCount,
+      </if>
+      <if test="matchtype != null">
+        matchType,
+      </if>
+      <if test="battleflag != null">
+        battleFlag,
+      </if>
+      <if test="songname != null">
+        SongName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="battleid != null">
+        #{battleid,jdbcType=INTEGER},
+      </if>
+      <if test="matchid != null">
+        #{matchid,jdbcType=INTEGER},
+      </if>
+      <if test="playerid != null">
+        #{playerid,jdbcType=INTEGER},
+      </if>
+      <if test="tickettruecount != null">
+        #{tickettruecount,jdbcType=INTEGER},
+      </if>
+      <if test="ticketfalsecount != null">
+        #{ticketfalsecount,jdbcType=INTEGER},
+      </if>
+      <if test="needscorecount != null">
+        #{needscorecount,jdbcType=DOUBLE},
+      </if>
+      <if test="matchtype != null">
+        #{matchtype,jdbcType=INTEGER},
+      </if>
+      <if test="battleflag != null">
+        #{battleflag,jdbcType=INTEGER},
+      </if>
+      <if test="songname != null">
+        #{songname,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.workroom.domain.battles">
+    update battles
+    <set>
+      <if test="matchid != null">
+        matchId = #{matchid,jdbcType=INTEGER},
+      </if>
+      <if test="playerid != null">
+        PlayerId = #{playerid,jdbcType=INTEGER},
+      </if>
+      <if test="tickettruecount != null">
+        TicketTrueCount = #{tickettruecount,jdbcType=INTEGER},
+      </if>
+      <if test="ticketfalsecount != null">
+        TicketFalseCount = #{ticketfalsecount,jdbcType=INTEGER},
+      </if>
+      <if test="needscorecount != null">
+        NeedScoreCount = #{needscorecount,jdbcType=DOUBLE},
+      </if>
+      <if test="matchtype != null">
+        matchType = #{matchtype,jdbcType=INTEGER},
+      </if>
+      <if test="battleflag != null">
+        battleFlag = #{battleflag,jdbcType=INTEGER},
+      </if>
+      <if test="songname != null">
+        SongName = #{songname,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where battleId = #{battleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.workroom.domain.battles">
+    update battles
+    set matchId = #{matchid,jdbcType=INTEGER},
+      PlayerId = #{playerid,jdbcType=INTEGER},
+      TicketTrueCount = #{tickettruecount,jdbcType=INTEGER},
+      TicketFalseCount = #{ticketfalsecount,jdbcType=INTEGER},
+      NeedScoreCount = #{needscorecount,jdbcType=DOUBLE},
+      matchType = #{matchtype,jdbcType=INTEGER},
+      battleFlag = #{battleflag,jdbcType=INTEGER},
+      SongName = #{songname,jdbcType=LONGVARCHAR}
+    where battleId = #{battleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.workroom.domain.battles">
+    update battles
+    set matchId = #{matchid,jdbcType=INTEGER},
+      PlayerId = #{playerid,jdbcType=INTEGER},
+      TicketTrueCount = #{tickettruecount,jdbcType=INTEGER},
+      TicketFalseCount = #{ticketfalsecount,jdbcType=INTEGER},
+      NeedScoreCount = #{needscorecount,jdbcType=DOUBLE},
+      matchType = #{matchtype,jdbcType=INTEGER},
+      battleFlag = #{battleflag,jdbcType=INTEGER}
+    where battleId = #{battleid,jdbcType=INTEGER}
+  </update>
+    <update id="updateBattles" parameterType="com.workroom.domain.battles">
+    update battles
+    set 
+      TicketTrueCount = TicketTrueCount+#{tickettruecount,jdbcType=INTEGER},
+      TicketFalseCount = TicketFalseCount+#{ticketfalsecount,jdbcType=INTEGER}
+    where battleId = #{battleid,jdbcType=INTEGER} and PlayerId = #{playerid,jdbcType=INTEGER} and matchId = #{matchid,jdbcType=INTEGER}
+  </update>
+  <update id="updateMatch" parameterType="java.lang.Integer">
+    update battles set
+    <foreach collection="array" index="index" item="item">
+	    <if test="index==0">
+	    	battleFlag = #{item,jdbcType=INTEGER}
+	    </if>
+	    <if test="index==1">
+	    	where matchId = #{item,jdbcType=INTEGER}
+	    </if>
+    </foreach>
+  </update>
+</mapper>

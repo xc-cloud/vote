@@ -1,0 +1,77 @@
+<style>
+    .MatchManager {
+        height: {{windowHeight}}px;
+        background: rgba(255, 255, 255, 0.79);
+        overflow-y: auto;
+    }
+    #nav{
+        text-align: center;
+    }
+    #nav li{
+        float: left;
+    }
+    .bt {
+        margin: auto 5px;
+    }
+    #MatchInsert{
+        width: 300px;
+        height: 300px;
+        background-color: aliceblue;
+        position: fixed;
+        top:0px;
+        top:{{(windowH-300)/2}}px;
+        left: 40%;
+        border-radius: 3px;
+    }
+    #MatchInsert ul li:last-child{
+        text-align: center;
+    }    
+    #search{
+    height:60px;
+    line-height:60px;
+    padding-left: 50px;
+    }
+    .table td{
+	text-align: center;
+    }
+</style>
+<div class="MatchManager">
+    <div id="nav">
+        <ul class="btn-group btn-group-lg">
+        <li><a href="#!MatchManager" class="btn btn-default">比赛管理</a></li>
+        <li><a href="#!PlayerManager" class="btn btn-default">比赛选手管理</a></li>
+        <li><a href="#!BattleManager" class="btn btn-default">比赛场次管理</a></li>
+        </ul>
+    </div>
+    <div id="search">
+        <p class="btn btn-primary" ng-click="open()">新增</p>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <td>比赛ID</td>
+            <td>比赛名称</td>
+            <td>比赛地点</td>
+            <td>比赛时间</td>
+            <td>比赛说明</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="(id,temp) in MatchManager">
+            <td>{{temp.matchid}}</td>
+            <td>{{temp.matchname}}</td>
+            <td>{{temp.matchaddress}}</td>
+            <td>{{temp.matchtime}}</td>
+            <td>{{temp.matchinfo}}</td>
+            <td><input type="button" value="修改" class="btn btn-info bt" ng-click="updateMatch(id,temp.matchid)"><input type="button" value="删除" class="btn btn-danger bt" ng-click="deleteMatch(id,temp.matchid)"></td>
+        </tr>
+    </table>
+    <!-- 信息添加 -->
+<div id="MatchInsert" ng-show="isshow" class="panel-body">
+    <ul>
+        <li>比赛名称<input type="text" ng-model="MatchManagerTemp.matchname" class="form-control" placeholder="比赛名称"></li>
+        <li>比赛地点<input type="text" ng-model="MatchManagerTemp.matchaddress" class="form-control" placeholder="比赛地点"></li>
+        <li>比赛时间<input type="text" ng-model="MatchManagerTemp.matchtime" class="form-control Wdate" placeholder="比赛时间"  onClick="WdatePicker()" onchange=""></li>
+        <li>比赛说明<input type="text" ng-model="MatchManagerTemp.matchinfo" class="form-control" placeholder="比赛说明"></li>
+        <li><input type="button" value="添加" ng-show="btnInsert" class="btn btn-success f-center" ng-click="insertMatch()"><input type="button" value="修改" ng-show="btnUpdate" class="btn btn-success f-center" ng-click="insertMatch()"><input type="button" value="放弃" class="btn btn-danger f-center" ng-click="close()"></li>
+    </ul>
+</div>
+</div>

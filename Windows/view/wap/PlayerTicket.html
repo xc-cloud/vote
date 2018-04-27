@@ -1,0 +1,42 @@
+<style>
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        vertical-align:inherit !important;
+    }
+    .btn{
+        padding: 6px 6px !important;
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+    .PlayerTicket-list{
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+    }
+    .Player-body{
+        height: {{windowHeight}}px;
+        overflow-y: auto;
+    }
+    .vs img{
+        width: 25px;
+        height: 25px;
+    }
+</style>
+<div class="panel panel-primary Player-body">
+    <div class="panel-heading">
+        <h3 class="panel-title">观众投票</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+        <tr ng-repeat="(id,value) in selectAllOrderby">
+            <td>场次:{{value[0].matchid}}</td>
+            <td><img src="{{selectAllUser[id*2].playerimage}}" alt="" width="50px" height="50px"></td>
+            <td>支持票:{{value[0].tickettruecount}}<br/>反对票:{{value[0].ticketfalsecount}}</td>
+            <td><span class="btn btn-success" ng-click="TicketTrue(id,0,value[0].matchid,value[0].battleid,value[0].playerid)">支持</span><br/><span class="btn btn-danger" ng-click="TicketFlase(id,0,value[0].matchid,value[0].battleid,value[0].playerid)">反对</span></td>
+            <td class="vs"><img src="images/pk.gif" alt=""></td>
+            <td><img src="{{selectAllUser[id*2+1].playerimage}}" alt="" width="50px" height="50px"></td>
+            <td>支持票:{{value[1].tickettruecount}}<br/>反对票:{{value[1].ticketfalsecount}}</td>
+            <td><span class="btn btn-success" ng-click="TicketTrue(id,1,value[1].matchid,value[1].battleid,value[1].playerid)">支持</span><br/><span class="btn btn-danger" ng-click="TicketFlase(id,1,value[1].matchid,value[1].battleid,value[1].playerid)">反对</span></td>
+        </tr>
+    </table>
+    </div>
+</div>

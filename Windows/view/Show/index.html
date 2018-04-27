@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp" ng-controller="myapp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../../js/jquery-1.12.1.js"></script>
+    <script src="../../js/angular.js"></script>
+    <script src="../../js/angular-route.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="js/js.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css.css">
+    <style>
+        .main {
+            width: 1024px;
+            height: 500px;
+            left:{{DivLeft}}px;
+            top:{{DivTop}}px;
+            padding: 10px;
+            position: fixed;
+        }
+        
+        .left {
+            float: left;
+            width: 40%;
+            text-align: left
+        }
+        
+        .center{
+            width: 20%;
+            float:left;
+            text-align: center;
+        }
+        .center img{
+            width: 100px;
+            height: 60px;
+            display: block;
+            margin: auto;
+            margin-top: 170px;
+        }
+        .right {
+            float: right;
+            width: 40%;
+            text-align: right
+        }
+        
+        .left img,
+        .right img,.Temp img {
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            display: block;
+            margin: auto;
+            margin-top: 20px;
+        }
+        
+        .f_right {
+            float: right
+        }
+        .name{
+            text-align: center;
+            height: 60px;
+            line-height: 60px;
+            font-size: 25px;
+            font-family: "微软雅黑";
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .progress-bar{
+            position: relative;
+        }
+        .playerdata{
+            position: absolute;
+            right:100px;
+            top:0;
+            color: red;
+        }
+        .sum{
+            margin-top: 50px;
+        }
+        .sumtrue{
+            color: green;
+        }
+        .sumfalse{
+            color: red;
+        }
+        .truepro{
+            position: relative;
+        }
+        .ticket0{
+            position: absolute;
+            left:30%;
+        }
+        .ticket1{
+            position: absolute;
+            right:30%;
+        }
+        .top{
+            z-index: 999;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main panel" style="display:{{isHidesmain1}}">
+        <div class="left">
+            <img src="../../{{PlayerManager[0].playerimage}}" alt="">
+            <p class="name">{{PlayerManager[0].playername}}</p>
+            <div class="progress truepro">
+                <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{(BattleManager[0].tickettruecount/(BattleManager[0].tickettruecount+BattleManager[1].tickettruecount))*100}}%;color:#000"></div><span class="ticket0">支持({{BattleManager[0].tickettruecount}}票)</span>
+            </div>
+            <div class="progress truepro">
+                <div class="progress-bar progress-bar-danger " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{BattleManager[0].ticketfalsecount/(BattleManager[0].ticketfalsecount+BattleManager[1].ticketfalsecount)*100}}%;color:#000"></div><span class="ticket0">反对({{BattleManager[0].ticketfalsecount}}票)</span>
+            </div>
+        </div>
+        <div class="center">
+            <img src="../../images/pk.gif" alt="">
+            <div class="sum"><p class="sumtrue">总支持票:{{BattleManager[0].tickettruecount+BattleManager[1].tickettruecount}}</p><p class="sumfalse">总反对票:{{BattleManager[0].ticketfalsecount+BattleManager[1].ticketfalsecount}}</p></div>
+        </div>
+        <div class="right">
+            <img src="../../{{PlayerManager[1].playerimage}}" alt="">
+            <p class="name">{{PlayerManager[1].playername}}</p>
+            <div class="progress truepro">
+                <div class="progress-bar progress-bar-success f_right" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{BattleManager[1].tickettruecount/(BattleManager[0].tickettruecount+BattleManager[1].tickettruecount)*100}}%;color:#000">
+                    </div><span class="ticket1">支持({{BattleManager[1].tickettruecount}}票)</span>
+            </div>
+            <div class="progress truepro">
+                <div class="progress-bar progress-bar-danger f_right" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{BattleManager[1].ticketfalsecount/(BattleManager[0].ticketfalsecount+BattleManager[1].ticketfalsecount)*100}}%;color:#000">
+                    </div><span class="ticket1">反对({{BattleManager[1].ticketfalsecount}}票)</span>
+            </div>
+        </div>
+    </div>
+    <div class="main panel top" style="display:{{isHidesmain2}}">
+        <div><h1>目前没有任何比赛...</h1></div>
+    </div>
+    <div class="main panel Temp" style="display:{{isHidesmain3}}">
+            <img src="../../{{PlayerManagerTemp.playerimage}}" alt="">
+            <p class="name">{{PlayerManagerTemp.playername}}&nbsp;&nbsp;&nbsp;<span style="color:coral;font-size:26px;font-style:italic;font-weight:700">WIN</span>&nbsp;&nbsp;&nbsp;最终得分：<span>{{BattleManagerTemp.needscorecount}}分</span></p>
+            <div class="progress truepro">
+                <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:100%;color:#000"></div><span class="ticket0">支持({{BattleManagerTemp.tickettruecount}}票)</span>
+            </div>
+            <div class="progress truepro">
+                <div class="progress-bar progress-bar-danger " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{BattleManagerTemp.ticketfalsecount/1}}%;color:#000"></div><span class="ticket0">反对({{BattleManagerTemp.ticketfalsecount}}票)</span>
+            </div>
+        </div>
+</body>
+
+</html>

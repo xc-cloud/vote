@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.workroom.mapper.barrageMapper">
+  <resultMap id="BaseResultMap" type="com.workroom.domain.barrage">
+    <id column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="Data" jdbcType="VARCHAR" property="data" />
+    <result column="caption" jdbcType="VARCHAR" property="caption" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    UserId, Data, caption
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from barrage
+    where UserId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from barrage
+    where UserId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.workroom.domain.barrage">
+    insert into barrage (UserId, Data, caption
+      )
+    values (#{userid,jdbcType=INTEGER}, #{data,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.workroom.domain.barrage">
+    insert into barrage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="data != null">
+        Data,
+      </if>
+      <if test="caption != null">
+        caption,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null">
+        #{caption,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.workroom.domain.barrage">
+    update barrage
+    <set>
+      <if test="data != null">
+        Data = #{VARCHAR,jdbcType=DATE},
+      </if>
+      <if test="caption != null">
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.workroom.domain.barrage">
+    update barrage
+    set Data = #{data,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR}
+    where UserId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

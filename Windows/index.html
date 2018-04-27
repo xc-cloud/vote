@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp" ng-controller="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>{{caption}}</title>
+    <script src="js/jquery-1.12.1.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="My97DatePickerBeta/My97DatePicker/WdatePicker.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <style>
+        *{
+            font-family: "微软雅黑";
+        }
+        ul,li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .defalut{
+            position: relative;
+            margin: 0 50px;
+            height: {{windowHeight}}px;
+            margin-top: {{windowTop}}px;
+            background: rgba(0,0,0,0);
+            overflow: hidden;
+            border-width: 3px;
+        }
+        body{
+            background: {{bodyBackground}};
+        }
+        .login{
+            height:{{windowHeight}}px;
+            background:url(images/pc.png);
+            background-size:100%;
+        }
+        .login-form{
+            float: right;
+            height: {{windowHeight}}px;
+            background: rgba(255, 255, 255, 0.76);
+            width: 300px;
+        }
+        .login-caption{
+            font-size: 30px;
+            text-align: center;
+            line-height: 200px;
+            height: 200px;
+        }
+        .login-text{
+            padding: 20px;
+            height: 300px;
+        }
+        .login-form li{
+            height: 70px;
+        }
+        .login-form li:last-child{
+            text-align: center;
+        }
+        .f-center{
+            margin: 10px;
+            display:inline-block;
+            width: 100px;
+        }
+        .Userlogin-form{
+            margin: auto;
+            background: rgba(255, 255, 255, 0.76);
+            width: 100%;
+        }
+        .Userlogin-caption{
+            font-size: 30px;
+            text-align: center;
+            line-height: 200px;
+            height: 200px;
+        }
+        .Userlogin-text{
+            padding: 20px;
+            height: 300px;
+        }
+        .Userlogin-form li{
+            height: 70px;
+        }
+        .Userlogin-form li:last-child{
+            text-align: center;
+        }
+        .Userlogin-center{
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel panel-default defalut">
+        <ng-view></ng-view>
+    </div>
+</body>
+</html>

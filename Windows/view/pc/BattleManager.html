@@ -1,0 +1,104 @@
+<style>
+    .BattleManager {
+        height: {{windowHeight}}px;
+        background: rgba(255, 255, 255, 0.79);
+        overflow-y: auto;
+    }
+     #nav{
+        text-align: center;
+    }
+    #nav li{
+        float: left;
+    }
+    .bt {
+        margin: auto 5px;
+    }
+    #BattleInsert{
+    	z-index:999;
+        width: 300px;
+        height: 500px;
+        background-color: aliceblue;
+        position: fixed;
+        top:0px;
+        top:{{(windowH-500)/2}}px;
+        left: 40%;
+        border-radius: 3px;
+    }
+    #BattleInsert ul li:last-child{
+        text-align: center;
+    }
+    #search{
+    margin:auto;
+    width:1024px;
+    line-height:60px;
+    padding: 50px;
+    }
+    .table td{
+        text-align: center;
+    }
+    .input-group-addon{
+    cursor: pointer;
+    }
+</style>
+<div class="BattleManager">
+    <div id="nav">
+        <ul class="btn-group btn-group-lg">
+        <li><a href="#!MatchManager" class="btn btn-default">比赛管理</a></li>
+        <li><a href="#!PlayerManager" class="btn btn-default">比赛选手管理</a></li>
+        <li><a href="#!BattleManager" class="btn btn-default">比赛场次管理</a></li>
+        </ul>
+    </div>
+    <div id="search" class="input-group">
+      <span class="input-group-addon" ng-click="open()">新增</span>
+      <select ng-model="MatchId" class="js-example-basic-single js-states form-control" ng-options="match.matchid as match.matchname for match in MatchManager">
+       </select>
+      <span class="input-group-addon" ng-click="startMatch()">启动比赛</span>
+      <span class="input-group-addon" ng-click="stopISMatch()">结算比赛</span>
+      <span class="input-group-addon" ng-click="stopMatch()">终止比赛</span>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <td>对战ID</td>
+            <td>比赛ID</td>
+            <td>选手ID</td>
+            <td>歌曲名</td>
+            <td>支持票数</td>
+            <td>反对票数</td>
+            <td>评委打分</td>
+            <td>比赛评分类型</td>
+            <td>比赛进行状况</td>
+        </tr>
+        <tr ng-repeat="(id,temp) in BattleManager">
+            <td>{{temp.battleid}}</td>
+            <td>{{temp.matchid}}</td>
+            <td>{{temp.playerid}}</td>
+            <td>{{temp.songname}}</td>
+            <td>{{temp.tickettruecount}}</td>
+            <td>{{temp.ticketfalsecount}}</td>
+            <td>{{temp.needscorecount}}</td>
+            <td>{{temp.matchtype}}</td>
+            <td>{{temp.battleflag}}</td>
+            <td><input type="button" value="修改" class="btn btn-info bt" ng-click="updateBattle(id,temp.battleid)"><input type="button" value="删除" class="btn btn-danger bt" ng-click="deleteBattle(id,temp.battleid)"></td>
+        </tr>
+    </table>
+    <!-- 信息添加 -->
+<div id="BattleInsert" ng-show="isshow" class="panel-body">
+    <ul>
+       <li>比赛ID
+          <select ng-model="BattleManagerTemp.matchid" class="js-example-basic-single js-states form-control" ng-options="match.matchid as match.matchname for match in MatchManager">
+       </select></li>
+       <li>选手ID
+          <select ng-model="BattleManagerTemp.playerid" class="js-example-basic-single js-states form-control" ng-options="player.playerid as player.playername for player in PlayerManager">
+       </select></li>
+       <li>歌曲名<input type="text" ng-model="BattleManagerTemp.songname" class="form-control" placeholder="歌曲名"></li>
+       <li>支持票数<input type="text" ng-model="BattleManagerTemp.tickettruecount" class="form-control" placeholder="支持票数"></li>
+       <li>反对票数<input type="text" ng-model="BattleManagerTemp.ticketfalsecount" class="form-control" placeholder="反对票数"></li>
+       <li>评委打分<input type="text" ng-model="BattleManagerTemp.needscorecount" class="form-control" placeholder="评委打分"></li>
+       <li>比赛评分类型
+       <select ng-model="BattleManagerTemp.matchtype" class="js-example-basic-single js-states form-control" ng-options="temp.id as temp.matchtype for temp in GetMatchType"></select>
+       </li>
+       <li>比赛进行状况<select ng-model="BattleManagerTemp.battleflag" class="js-example-basic-single js-states form-control" ng-options="temp.id as temp.type for temp in GetBattleflagType"></select></li>
+    <li><input type="button" value="添加" ng-show="btnInsert" class="btn btn-success f-center" ng-click="insertBattle()"><input type="button" value="修改" ng-show="btnUpdate" class="btn btn-success f-center" ng-click="insertBattle()"><input type="button" value="放弃" class="btn btn-danger f-center" ng-click="close()"></li>
+    </ul>
+</div>
+</div>

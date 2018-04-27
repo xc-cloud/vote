@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.workroom.mapper.matchsMapper">
+  <resultMap id="BaseResultMap" type="com.workroom.domain.matchs">
+    <id column="matchId" jdbcType="INTEGER" property="matchid" />
+    <result column="matchName" jdbcType="VARCHAR" property="matchname" />
+    <result column="matchAddress" jdbcType="VARCHAR" property="matchaddress" />
+    <result column="matchTime" jdbcType="VARCHAR" property="matchtime" />
+    <result column="matchInfo" jdbcType="VARCHAR" property="matchinfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    matchId, matchName, matchAddress, matchTime, matchInfo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from matchs
+    where matchId = #{matchid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from matchs
+  </select>
+  <select id="getId" resultType="java.lang.Integer">
+    SELECT LAST_INSERT_ID()
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from matchs
+    where matchId = #{matchid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.workroom.domain.matchs">
+    insert into matchs (matchId, matchName, matchAddress, 
+      matchTime, matchInfo)
+    values (#{matchid,jdbcType=INTEGER}, #{matchname,jdbcType=VARCHAR}, #{matchaddress,jdbcType=VARCHAR}, 
+      #{matchtime,jdbcType=VARCHAR}, #{matchinfo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.workroom.domain.matchs">
+    insert into matchs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="matchid != null">
+        matchId,
+      </if>
+      <if test="matchname != null">
+        matchName,
+      </if>
+      <if test="matchaddress != null">
+        matchAddress,
+      </if>
+      <if test="matchtime != null">
+        matchTime,
+      </if>
+      <if test="matchinfo != null">
+        matchInfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="matchid != null">
+        #{matchid,jdbcType=INTEGER},
+      </if>
+      <if test="matchname != null">
+        #{matchname,jdbcType=VARCHAR},
+      </if>
+      <if test="matchaddress != null">
+        #{matchaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="matchtime != null">
+        #{matchtime,jdbcType=VARCHAR},
+      </if>
+      <if test="matchinfo != null">
+        #{matchinfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.workroom.domain.matchs">
+    update matchs
+    <set>
+      <if test="matchname != null">
+        matchName = #{matchname,jdbcType=VARCHAR},
+      </if>
+      <if test="matchaddress != null">
+        matchAddress = #{matchaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="matchtime != null">
+        matchTime = #{matchtime,jdbcType=VARCHAR},
+      </if>
+      <if test="matchinfo != null">
+        matchInfo = #{matchinfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where matchId = #{matchid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.workroom.domain.matchs">
+    update matchs
+    set matchName = #{matchname,jdbcType=VARCHAR},
+      matchAddress = #{matchaddress,jdbcType=VARCHAR},
+      matchTime = #{matchtime,jdbcType=VARCHAR},
+      matchInfo = #{matchinfo,jdbcType=VARCHAR}
+    where matchId = #{matchid,jdbcType=INTEGER}
+  </update>
+</mapper>

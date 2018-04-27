@@ -1,0 +1,77 @@
+<style>
+    .PlayerManager {
+        height: {{windowHeight}}px;
+        background: rgba(255, 255, 255, 0.79);
+        overflow-y: auto;
+    }
+     #nav{
+        text-align: center;
+    }
+    #nav li{
+        float: left;
+    }
+    .bt {
+        margin: auto 5px;
+    }
+    #PlayerInsert{
+        width: 300px;
+        height: 300px;
+        background-color: aliceblue;
+        position:fixed;
+        top:0px;
+        top:{{(windowH-300)/2}}px;
+        left: 40%;
+        border-radius: 3px;
+    }
+    #PlayerInsert ul li:last-child{
+        text-align: center;
+    }
+    #search{
+    height:60px;
+    line-height:60px;
+    padding-left: 50px;
+    }
+    .table td{
+        text-align: center;
+    }
+</style>
+<div class="PlayerManager">
+    <div id="nav">
+        <ul class="btn-group btn-group-lg">
+        <li><a href="#!MatchManager" class="btn btn-default">比赛管理</a></li>
+        <li><a href="#!PlayerManager" class="btn btn-default">比赛选手管理</a></li>
+        <li><a href="#!BattleManager" class="btn btn-default">比赛场次管理</a></li>
+        </ul>
+    </div>
+    <div id="search">
+        <p class="btn btn-primary btn-opens" ng-click="open()">新增</p>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <td>ID</td>
+            <td>电话</td>
+            <td>姓名</td>
+            <td>照片</td>
+            <td>简介</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="(id,temp) in PlayerManager">
+            <td>{{temp.playerid}}</td>
+            <td>{{temp.playertel}}</td>
+            <td>{{temp.playername}}</td>
+            <td><img src="{{temp.playerimage}}" width="40px" height="40px" alt="未找到该选手图片"></td>
+            <td>{{temp.playertext}}</td>
+            <td><input type="button" value="修改" class="btn btn-info bt" ng-click="updatePlayer(id,temp.playerid)"><input type="button" value="删除" class="btn btn-danger bt" ng-click="deletePlayer(id,temp.playerid)"></td>
+        </tr>
+    </table>
+    <!-- 信息添加 -->
+<div id="PlayerInsert" ng-show="isshow" class="panel-body">
+    <ul>
+        <li>电话<input type="text" ng-model="PlayerManagerTemp.playertel" class="form-control" placeholder="电话"></li>
+        <li>姓名<input type="text" ng-model="PlayerManagerTemp.playername" class="form-control" placeholder="姓名"></li>
+        <li>照片<input type="text" class="form-control" ng-model="PlayerManagerTemp.playerimage" placeholder="照片"></li>
+        <li>简介<input type="text" ng-model="PlayerManagerTemp.playertext" class="form-control" placeholder="简介"></li>
+        <li><input type="button" value="添加" ng-show="btnInsert" class="btn btn-success f-center" ng-click="insertPlayer()"><input type="button" value="修改" ng-show="btnUpdate" class="btn btn-success f-center" ng-click="insertPlayer()"><input type="button" value="放弃" class="btn btn-danger f-center" ng-click="close()"></li>
+    </ul>
+</div>
+</div>

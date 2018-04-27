@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url(../../../images/background.png);
+    overflow: hidden;
+}
+
+.player {
+    width: 300px;
+    height: auto;
+    display: inline-block;
+}

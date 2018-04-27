@@ -1,0 +1,27 @@
+<style>
+    .register{
+        width: 300px;
+        margin: auto;
+        margin-top: 50px;
+        padding: 20px;
+    }
+    .bbtn{
+        text-align: center;
+        display: block;
+        margin-top: 20px;
+    }
+    .bbtn button{
+        margin-right: 20px;
+    }
+</style>
+   <div class="register panel panel-default">
+    <ul>
+        <li>账号：<input type="number" class="form-control" placeholder="登录ID" ng-model="data.username" maxlength="11"></li>
+        <li>密码：<input type="password" class="form-control" placeholder="登录密码" maxlength="16" ng-model="data.password"></li>
+        <li>真实姓名：<input type="text" class="form-control" placeholder="真实姓名" ng-model="data.name" maxlength="32"></li>
+        <li class="input-group">性别：<input type="radio"  ng-click="radio(true)" ng-checked="true" name="sex">男<input type="radio" ng-click="false" ng-checked="" name="sex">女</li>
+        <li>电话：<input type="tel" placeholder="联系电话" class="form-control" ng-model="data.tel" maxlength="11"></li>
+    </ul>
+    <span class="bbtn"><button type="button" value="注册" ng-click="submitRegister()" class="btn btn-success">注册</button>
+    <a href="#!login" class="btn btn-info">登录</a></span>
+</div>

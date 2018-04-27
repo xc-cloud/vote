@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.workroom.mapper.matchtypeMapper">
+  <resultMap id="BaseResultMap" type="com.workroom.domain.matchtype">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="matchtype" jdbcType="VARCHAR" property="matchtype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, matchtype
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from matchtype
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from matchtype
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from matchtype
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.workroom.domain.matchtype">
+    insert into matchtype (Id, matchtype)
+    values (#{id,jdbcType=INTEGER}, #{matchtype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.workroom.domain.matchtype">
+    insert into matchtype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="matchtype != null">
+        matchtype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="matchtype != null">
+        #{matchtype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.workroom.domain.matchtype">
+    update matchtype
+    <set>
+      <if test="matchtype != null">
+        matchtype = #{matchtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.workroom.domain.matchtype">
+    update matchtype
+    set matchtype = #{matchtype,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
